@@ -17,4 +17,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Pelanggan::class);
     }
+
+    public function produk()
+    {
+        return $this->hasMany(Produk::class);
+    }
 }

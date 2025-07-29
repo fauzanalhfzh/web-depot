@@ -38,8 +38,11 @@ class TransaksiResource extends Resource
                     ->label('Nama Pelanggan')
                     ->relationship('pelanggan', 'nama_pelanggan')
                     ->searchable()
-                    ->columnSpanFull()
                     ->reactive()
+                    ->required(),
+                Forms\Components\Select::make('produk_id')
+                    ->label('Produk')
+                    ->relationship('produk', 'nama_produk')
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_transaksi')
                     ->required(),
