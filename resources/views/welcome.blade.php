@@ -50,7 +50,7 @@
             <div class="relative md:-ml-20 z-10 bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-lg">
                 <h3 class="text-4xl font-extrabold text-gray-800 mb-4">Tentang Depot Wilda Fresh</h3>
                 <p class="text-gray-700 text-lg leading-relaxed">
-                    Kami adalah penyedia air isi ulang terpercaya di Cilegon. Mengutamakan kualitas dan kebersihan,
+                    Kami adalah penyedia air isi ulang terpercaya di Kampung Cikubang 5, Desa Argawana, Kecamatan Pulo Ampel, Kabupaten Serang. Mengutamakan kualitas dan kebersihan,
                     kami menyediakan galon air yang sehat dan siap antar ke rumah Anda. Layanan cepat, harga bersahabat.
                 </p>
             </div>

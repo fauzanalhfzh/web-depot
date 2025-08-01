@@ -53,37 +53,33 @@ class TransaksiResource extends Resource
                     ->numeric()
                     ->reactive()
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $produkId = $get('produk_id');
                         $pelangganId = $get('pelanggan_id');
 
+                        // Ambil harga produk dari database
+                        $hargaProduk = 0;
+                        if ($produkId) {
+                            $produk = \App\Models\Produk::find($produkId);
+                            $hargaProduk = $produk?->harga ?? 0;
+                        }
+
+                        // Set total harga dari produk yang dipilih
+                        $set('total_harga', $state * $hargaProduk);
+
+                        // BONUS PERHITUNGAN
                         if (!$pelangganId) {
                             $set('bonus', 0);
                             return;
                         }
 
-                        // Hitung total pembelian sebelum transaksi ini
                         $totalJumlahPembelianSebelumnya = \App\Models\Transaksi::where('pelanggan_id', $pelangganId)->sum('jumlah');
-
-                        // Hitung total pembelian termasuk transaksi ini
                         $totalJumlahPembelianSekarang = $totalJumlahPembelianSebelumnya + ($state ?? 0);
 
-                        // Hitung bonus sebelum transaksi ini
                         $bonusSebelumnya = floor($totalJumlahPembelianSebelumnya / 5);
-
-                        // Hitung bonus sekarang
                         $bonusSekarang = floor($totalJumlahPembelianSekarang / 5);
-
-                        // Bonus tambahan hanya jika bonus sekarang lebih besar dari bonus sebelumnya
                         $bonus = $bonusSekarang > $bonusSebelumnya ? ($bonusSekarang - $bonusSebelumnya) : 0;
 
                         $set('bonus', $bonus);
-
-                        // Hitung total harga
-                        $hargaGalon = 5000;
-                        if ($state) {
-                            $set('total_harga', $state * $hargaGalon);
-                        } else {
-                            $set('total_harga', 0);
-                        }
                     }),
                 Forms\Components\TextInput::make('total_harga')
                     ->required()
