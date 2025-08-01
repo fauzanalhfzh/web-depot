@@ -69,7 +69,7 @@
                 <div class="p-4">
                     <h2 class="text-lg font-semibold text-gray-800">{{ $produk->nama_produk }}</h2>
                     <p class="text-green-600 font-bold mt-1">Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
-                    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20{{ urlencode($produk->nama_produk) }}"
+                    <a href="https://wa.me/6289666981101?text=Halo%2C%20saya%20ingin%20memesan%20{{ urlencode($produk->nama_produk) }}"
                         class="block mt-4 bg-green-500 hover:bg-green-600 text-white text-center py-2 rounded-md transition"
                         target="_blank">
                         Pesan via WhatsApp
