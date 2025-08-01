@@ -86,7 +86,7 @@
             <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">Alamat Kami</h3>
             <p class="text-center text-gray-600 mb-6">Kunjungi Depot Wilda Fresh atau cek lokasi kami melalui peta di bawah ini.</p>
             <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.9488089141532!2d106.06534667593402!3d-6.001767758962415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418e12ec0734f3%3A0xdd47e111a5020546!2sSTTIKOM%20Insan%20Unggul!5e0!3m2!1sen!2sid!4v1753749658588!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3968.34277162926!2d106.09839247498815!3d-5.947414394037091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNcKwNTYnNTAuNyJTIDEwNsKwMDYnMDMuNSJF!5e0!3m2!1sen!2sid!4v1754035334848!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>

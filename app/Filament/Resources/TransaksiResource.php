@@ -6,6 +6,7 @@ use App\Filament\Resources\TransaksiResource\Pages;
 use App\Filament\Resources\TransaksiResource\RelationManagers;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -45,6 +46,7 @@ class TransaksiResource extends Resource
                     ->relationship('produk', 'nama_produk')
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_transaksi')
+                    ->maxDate(Carbon::today())
                     ->required(),
                 Forms\Components\TextInput::make('jumlah')
                     ->required()
