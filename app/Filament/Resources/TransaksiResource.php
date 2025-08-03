@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TransaksiResource\Pages;
 use App\Filament\Resources\TransaksiResource\RelationManagers;
 use App\Models\Pelanggan;
+use App\Models\Produk;
 use App\Models\Transaksi;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -48,6 +49,14 @@ class TransaksiResource extends Resource
                 Forms\Components\DatePicker::make('tanggal_transaksi')
                     ->maxDate(Carbon::today())
                     ->required(),
+                Forms\Components\Toggle::make('is_delivery')
+                    ->label('Apakah Pengiriman?')
+                    ->reactive(),
+                Forms\Components\TextInput::make('ongkir')
+                    ->label('Ongkir')
+                    ->numeric()
+                    ->nullable()
+                    ->visible(fn($get) => $get('is_delivery') === true),
                 Forms\Components\TextInput::make('jumlah')
                     ->required()
                     ->numeric()
@@ -55,16 +64,27 @@ class TransaksiResource extends Resource
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $produkId = $get('produk_id');
                         $pelangganId = $get('pelanggan_id');
+                        $isDelivery = $get('is_delivery');
+                        $ongkir = (float) $get('ongkir');
 
                         // Ambil harga produk dari database
                         $hargaProduk = 0;
                         if ($produkId) {
-                            $produk = \App\Models\Produk::find($produkId);
+                            $produk = Produk::find($produkId);
                             $hargaProduk = $produk?->harga ?? 0;
                         }
 
-                        // Set total harga dari produk yang dipilih
-                        $set('total_harga', $state * $hargaProduk);
+                        // Hitung total harga produk
+                        $totalProduk = $state * $hargaProduk;
+
+                        // Tambahkan ongkir jika is_delivery aktif dan ongkir tidak null
+                        $totalHarga = $totalProduk;
+                        if ($isDelivery && $ongkir) {
+                            $totalHarga += $ongkir;
+                        }
+
+                        // Set nilai total_harga
+                        $set('total_harga', $totalHarga);
 
                         // BONUS PERHITUNGAN
                         if (!$pelangganId) {
@@ -72,7 +92,7 @@ class TransaksiResource extends Resource
                             return;
                         }
 
-                        $totalJumlahPembelianSebelumnya = \App\Models\Transaksi::where('pelanggan_id', $pelangganId)->sum('jumlah');
+                        $totalJumlahPembelianSebelumnya = Transaksi::where('pelanggan_id', $pelangganId)->sum('jumlah');
                         $totalJumlahPembelianSekarang = $totalJumlahPembelianSebelumnya + ($state ?? 0);
 
                         $bonusSebelumnya = floor($totalJumlahPembelianSebelumnya / 5);
@@ -81,6 +101,7 @@ class TransaksiResource extends Resource
 
                         $set('bonus', $bonus);
                     }),
+
                 Forms\Components\TextInput::make('total_harga')
                     ->required()
                     ->numeric(),
@@ -89,6 +110,7 @@ class TransaksiResource extends Resource
                     ->default(0)
                     ->disabled()
                     ->dehydrated(true),
+
             ]);
     }
 
@@ -103,6 +125,13 @@ class TransaksiResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jumlah')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_delivery')
+                    ->label('Delivery')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('ongkir')
+                    ->label('Ongkir')
+                    ->money('IDR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_harga')
                     ->numeric()
