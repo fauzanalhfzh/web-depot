@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("bonus")->nullable();
             $table->boolean('is_delivery');
             $table->string("ongkir")->nullable();
+            $table->string('alamat_pengiriman')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

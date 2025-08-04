@@ -57,6 +57,10 @@ class TransaksiResource extends Resource
                     ->numeric()
                     ->nullable()
                     ->visible(fn($get) => $get('is_delivery') === true),
+                Forms\Components\TextInput::make('alamat_pengiriman')
+                    ->label('Alamat Pengiriman')
+                    ->nullable()
+                    ->visible(fn($get) => $get('is_delivery') === true),
                 Forms\Components\TextInput::make('jumlah')
                     ->required()
                     ->numeric()
@@ -131,6 +135,10 @@ class TransaksiResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('ongkir')
                     ->label('Ongkir')
+                    ->money('IDR')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('alamat_pengiriman')
+                    ->label('Alamat Pengiriman')
                     ->money('IDR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_harga')
