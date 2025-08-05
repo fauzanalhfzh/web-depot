@@ -20,6 +20,6 @@ class Transaksi extends Model
 
     public function produk()
     {
-        return $this->hasMany(Produk::class);
+        return $this->belongsTo(Produk::class);
     }
 }

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer("jumlah");
             $table->integer("total_harga");
             $table->integer("bonus")->nullable();
+            $table->string("motede_pembayaran")->nullable();
+            $table->boolean('is_paid')->nullable();
+            $table->string('bukti_pembayaran')->nullable();
             $table->boolean('is_delivery');
             $table->string("ongkir")->nullable();
             $table->string('alamat_pengiriman')->nullable();

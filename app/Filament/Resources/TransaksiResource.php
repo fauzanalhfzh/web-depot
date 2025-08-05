@@ -49,6 +49,28 @@ class TransaksiResource extends Resource
                 Forms\Components\DatePicker::make('tanggal_transaksi')
                     ->maxDate(Carbon::today())
                     ->required(),
+                Forms\Components\Select::make('motede_pembayaran')
+                    ->label('Metode Pembayaran')
+                    ->options([
+                        'Cash' => 'Cash',
+                        'Transfer' => 'Transfer',
+                        'QRIS' => 'QRIS',
+                    ])
+                    ->required(),
+                Forms\Components\Toggle::make('is_paid')
+                    ->label('Sudah Dibayar')
+                    ->reactive(),
+                Forms\Components\FileUpload::make('bukti_pembayaran')
+                    ->label('Bukti Pembayaran')
+                    ->image()
+                    ->directory('bukti-pembayaran')
+                    ->imagePreviewHeight('150')
+                    ->preserveFilenames()
+                    ->downloadable()
+                    ->openable()
+                    ->visible(fn($get) => $get('is_paid') === true)
+                    ->required(fn($get) => $get('is_paid') === true)
+                    ->reactive(),
                 Forms\Components\Toggle::make('is_delivery')
                     ->label('Apakah Pengiriman?')
                     ->reactive(),
@@ -123,28 +145,53 @@ class TransaksiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('pelanggan.nama_pelanggan')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_transaksi')
                     ->date()
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jumlah')
                     ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('motede_pembayaran')
+                    ->searchable()
+                    ->label('Metode')
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_paid')
+                    ->searchable()
+                    ->label('Sudah Dibayar')
+                    ->boolean()
+                    ->sortable(),
+                Tables\Columns\ImageColumn::make('bukti_pembayaran')
+                    ->searchable()
+                    ->label('Bukti Pembayaran')
+                    ->disk('public') // pastikan kamu pakai storage yang sesuai
+                    ->height(50)
+                    ->width(50)
+                    ->circular()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_delivery')
+                    ->searchable()
                     ->label('Delivery')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('ongkir')
+                    ->searchable()
                     ->label('Ongkir')
                     ->money('IDR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('alamat_pengiriman')
+                    ->searchable()
                     ->label('Alamat Pengiriman')
                     ->money('IDR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_harga')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('bonus')
+                    ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_at')
