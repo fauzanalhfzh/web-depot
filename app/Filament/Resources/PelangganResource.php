@@ -24,6 +24,8 @@ class PelangganResource extends Resource
 
     protected static ?string $label = "Pelanggan";
 
+    protected static ?string $title = "Pelanggan";
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

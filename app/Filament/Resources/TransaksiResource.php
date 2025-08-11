@@ -26,6 +26,8 @@ class TransaksiResource extends Resource
 
     protected static ?string $label = "Transaksi";
 
+    protected static ?string $title = "Transaksi";
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -211,6 +213,7 @@ class TransaksiResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                // TODO add print nota 
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

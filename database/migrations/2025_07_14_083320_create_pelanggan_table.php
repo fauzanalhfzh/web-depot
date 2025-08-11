@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("nama_pelanggan");
             $table->string("kontak_pelanggan");
+            // TODO add email password for authentication
             $table->softDeletes();
             $table->timestamps();
         });

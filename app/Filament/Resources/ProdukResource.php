@@ -27,6 +27,8 @@ class ProdukResource extends Resource
 
     protected static ?string $label = "Produk";
 
+    protected static ?string $title = "Produk";
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
