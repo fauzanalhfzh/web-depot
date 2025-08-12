@@ -58,13 +58,16 @@ class PelangganController extends Controller
     public function index()
     {
         $pelanggan = Auth::guard('pelanggan')->user();
-        $totalKupon = $pelanggan->transaksi()->sum('bonus');
+        $totalTransaksi = $pelanggan->transaksi()->sum('jumlah');
+
+        // Hitung sisa kupon di siklus 5
+        $totalKupon = $totalTransaksi % 5;
 
         $transaksi = $pelanggan->transaksi()->with('produk')->latest()->get();
 
-
         return view('pelanggan.dashboard', compact('pelanggan', 'totalKupon', 'transaksi'));
     }
+
 
 
     public function logout()

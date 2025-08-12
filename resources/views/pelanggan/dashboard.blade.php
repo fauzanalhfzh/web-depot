@@ -36,8 +36,17 @@
         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
             <h2 class="text-lg font-semibold text-gray-700 mb-2">Jumlah Kupon</h2>
             <p class="text-3xl font-bold text-green-600">{{ $totalKupon }}</p>
-            <p class="text-sm text-gray-500 mt-1">Gunakan kupon untuk mendapatkan diskon atau promo spesial.</p>
+            <p class="text-sm text-gray-500 mt-1">
+                Gunakan kupon untuk mendapatkan diskon atau promo spesial.
+            </p>
+
+            @if($totalKupon == 4)
+            <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded">
+                🎉 Selamat! Jika Anda menambah 1 kupon lagi, Anda akan mendapatkan bonus spesial!
+            </div>
+            @endif
         </div>
+
 
         <!-- Riwayat Transaksi -->
         <div class="bg-white rounded-lg shadow-lg p-6">
