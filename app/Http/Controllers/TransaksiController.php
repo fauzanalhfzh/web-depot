@@ -38,4 +38,20 @@ class TransaksiController extends Controller
         $mpdf->WriteHTML($html);
         return $mpdf->Output("Laporan_Transaksi_{$periode}.pdf", 'I');
     }
+
+    public function cetakNota($id)
+    {
+        // Ambil transaksi beserta relasi pelanggan dan produk
+        $transaksi = Transaksi::with('pelanggan', 'produk')->findOrFail($id);
+
+        // Render view khusus nota pembelian
+        $html = view('laporan.nota', compact('transaksi'))->render();
+
+        // Buat PDF
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($html);
+
+        // Output PDF dengan nama file sesuai ID transaksi
+        return $mpdf->Output("Nota_Pembelian_{$transaksi->id}.pdf", 'I');
+    }
 }

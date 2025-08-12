@@ -25,7 +25,9 @@ class UserResource extends Resource
 
     protected static ?string $label = "Petugas";
 
-    protected static ?string $Petugas = "Petugas";
+    protected static ?string $title = "Petugas";
+
+    protected static ?string $slug = 'petugas';
 
     public static function getNavigationBadge(): ?string
     {

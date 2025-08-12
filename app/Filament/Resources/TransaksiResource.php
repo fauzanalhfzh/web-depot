@@ -3,8 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TransaksiResource\Pages;
-use App\Filament\Resources\TransaksiResource\RelationManagers;
-use App\Models\Pelanggan;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use Carbon\Carbon;
@@ -15,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
 
 class TransaksiResource extends Resource
 {
@@ -27,6 +26,8 @@ class TransaksiResource extends Resource
     protected static ?string $label = "Transaksi";
 
     protected static ?string $title = "Transaksi";
+
+    protected static ?string $slug = 'transaksi';
 
     public static function getNavigationBadge(): ?string
     {
@@ -213,7 +214,12 @@ class TransaksiResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                // TODO add print nota 
+                Action::make('printNota')
+                    ->label('Cetak Nota')
+                    ->icon('heroicon-o-printer')
+                    ->color('success')
+                    ->url(fn($record) => route('cetak.nota', $record->id))
+                    ->openUrlInNewTab(),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

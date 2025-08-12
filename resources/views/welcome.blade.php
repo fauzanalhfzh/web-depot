@@ -17,13 +17,19 @@
 
 <body class="bg-[#f9fafb] text-[#1b1b18] font-sans">
 
-    <!-- Navbar -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-xl font-bold text-green-600">Depot Wilda Fresh</h1>
-            <a href="#lokasi" class="text-green-700 hover:underline font-medium">Alamat Kami</a>
+            <div class="flex items-center gap-6">
+                <a href="#lokasi" class="text-green-700 hover:underline font-medium">Alamat Kami</a>
+                <a href="{{ route('pelanggan.login') }}"
+                    class="bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded-lg transition">
+                    Login Pelanggan
+                </a>
+            </div>
         </div>
     </header>
+
 
     <!-- Hero Section -->
     <section class="bg-green-50 py-20">
