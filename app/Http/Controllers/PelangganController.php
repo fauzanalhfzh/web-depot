@@ -73,6 +73,6 @@ class PelangganController extends Controller
     public function logout()
     {
         Auth::guard('pelanggan')->logout();
-        return redirect()->route('/');
+        return redirect('/');
     }
 }
