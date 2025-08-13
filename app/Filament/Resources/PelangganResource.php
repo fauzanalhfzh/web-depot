@@ -44,6 +44,14 @@ class PelangganResource extends Resource
                 Forms\Components\TextInput::make('kontak_pelanggan')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
