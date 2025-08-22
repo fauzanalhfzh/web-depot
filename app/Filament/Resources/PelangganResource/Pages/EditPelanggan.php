@@ -11,7 +11,7 @@ class EditPelanggan extends EditRecord
 {
     protected static string $resource = PelangganResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function mutateFormDataBeforeSave(array $data): array
     {
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
